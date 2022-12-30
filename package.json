@@ -6,6 +6,9 @@
         "inquirer": "^6.5.0",
         "instagram-private-api": "^1.45.3",
         "moment": "^2.29.1",
-        "user-home": "^2.0.0"
+        "open": "^8.4.0",
+        "opn": "^6.0.0",
+        "user-home": "^2.0.0",
+        "util": "^0.12.5"
     }
 }
