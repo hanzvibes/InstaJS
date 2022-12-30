@@ -1,13 +1,14 @@
 ![Logo](https://raw.githubusercontent.com/hanzvibes/InstaJS/main/assets/banner.png)
 
-# InstaJS 
+# InstaJS v2
 
 A simple NodeJS based tool to help increase engagement on Instagram accounts and to interact between accounts effortlessly.
 
 
 ## 🌟 Features
 
-- Show Instagram Action Limit on Dashboard [ New ]
+- Follow user by Target Following [ New ] 🔥
+- Follow user by Target Followers [ New ] 🔥
 - Delete all post / media on your account 
 - Like all post on your feed
 - Like all post from your custom target profile 
