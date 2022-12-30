@@ -2,9 +2,10 @@ const { chalk, inquirer, print } = require("./src/index.js");
 var moment = require("moment");
 var colors = require("colors");
 var userHome = require("user-home");
-
-// DETECT IP
+var open = require('open');
 var os = require("os");
+
+// IP
 var interfaces = os.networkInterfaces();
 var addresses = [];
 for (var k in interfaces) {
@@ -16,25 +17,27 @@ for (var k in interfaces) {
     }
 }
 
-// FEATURE OPTION
+// Tools Title
 const questionTools = [
     "- Information",
-    "- Like all Post on your Feed",
-    "- Like all Post from Target Account",
+    "- Like all post on your Feed",
+    "- Like all post from target Account",
     "- Delete all post from your Account",
-
+    
+    "- Follow Account by Target Followers [NEW]",
+    "- Follow Account by Target Followings [NEW]",
     "- Follow & Like post by Target Followers",
     "- Like & Comment post by Target Followers Target",
 
     "- Follow, Like & Comment post by Target Followers",
-    "- Follow, Like & Comment post by Target Followers [BETA]",
+    "- Follow, Like & Comment post by Target Followers [Multiple Target]",
 
     "- Follow, Like & Comment post by Target Followers v2",
 
     "- Follow, Like & DM by Target Followers",
     "- Follow, Like & DM by Target Followers [BETA]",
 
-    "- Follow, Like & Comment post from Hashtag",
+    "- Follow, Like & Comment post from Hashtag [RECOMMENDED]",
     "- Follow, Like & Comment post from Location",
 
     "- Unfollow All Following",
@@ -50,7 +53,7 @@ const menuQuestion = {
     choices: questionTools,
 };
 
-// FEATURE LIST
+// Tools List
 const main = async () => {
     try {
         const { choice } = await inquirer.prompt(menuQuestion);
@@ -58,24 +61,29 @@ const main = async () => {
         choice == questionTools[1] && require("./src/liketimeline.js");
         choice == questionTools[2] && require("./src/liketarget.js");
         choice == questionTools[3] && require("./src/delallmedia.js");
-        choice == questionTools[4] && require("./src/flonly.js");
-        choice == questionTools[5] && require("./src/lconly.js");
-        choice == questionTools[6] && require("./src/fftauto.js");
-        choice == questionTools[7] && require("./src/fftbetaauto.js");
-        choice == questionTools[8] && require("./src/fftautov2.js");
-        choice == questionTools[9] && require("./src/fftdmauto.js");
-        choice == questionTools[10] && require("./src/fftdmbetaauto.js");
-        choice == questionTools[11] && require("./src/fhtauto.js");
-        choice == questionTools[12] && require("./src/fltauto.js");
-        choice == questionTools[13] && require("./src/unfollowall.js");
-        choice == questionTools[14] && require("./src/unfollnotfollback.js");
-        choice == questionTools[15] && process.exit();
+        choice == questionTools[4] && require("./src/followers_only.js");
+        choice == questionTools[5] && require("./src/following_only.js");
+        choice == questionTools[6] && require("./src/flonly.js");
+        choice == questionTools[7] && require("./src/lconly.js");
+        choice == questionTools[8] && require("./src/fftauto.js");
+        choice == questionTools[9] && require("./src/fftbetaauto.js");
+        choice == questionTools[10] && require("./src/fftautov2.js");
+        choice == questionTools[11] && require("./src/fftdmauto.js");
+        choice == questionTools[12] && require("./src/fftdmbetaauto.js");
+        choice == questionTools[13] && require("./src/fhtauto.js");
+        choice == questionTools[14] && require("./src/fltauto.js");
+        choice == questionTools[15] && require("./src/unfollowall.js");
+        choice == questionTools[16] && require("./src/unfollnotfollback.js");
+        choice == questionTools[17] && process.exit();
     } catch (err) {
         print(err, "err");
     }
 };
 
-// Welcome Header
+// Open @hanzvibes Instagram Profile
+const link = 'https://www.instagram.com/hanzvibes';
+open(link);
+
 console.log(chalk`{bold.green 
 
   ██╗███╗░░██╗░██████╗████████╗░█████╗░░░░░░██╗░██████╗
@@ -87,23 +95,20 @@ console.log(chalk`{bold.green
 
   - https://instagram.com/hanzvibes
 
-  Last update : 25 October 2022                               
+  Last update : 26 December 2022                               
   }`);
-console.log(chalk`{bold.yellow   A tool to help increase your Instagram profile}`);
-console.log(chalk`{bold.yellow   engagement & impressions easily and quickly.}`);
+console.log(chalk`{bold.yellow   An automation tools to help increase your}`);
+console.log(chalk`{bold.yellow   Instagram engagement & impressions}`);
 console.log("  —————————————————————————————————————————————\n".bold);
    
 // API Limit Description
-console.log(chalk`{bold.blue   Current Instagram API Limit 2022 ( Safest )\n }`);
-console.log("  > DATE  : ".bold.blue + moment().format("D MMMM YYYY, h:mm:ss a"));
-console.log("  > IP  : ".bold.blue + addresses);
-console.log("  > Like : ".bold.blue + "±200/day");
-console.log("  > Follow / Unfollow : ".bold.blue + "±150/day");
-console.log("  > Direct Message : ".bold.blue + "±50/day");
-console.log("  > Comments : ".bold.blue + "±100/day \n");
+console.log(chalk`{bold.blue   What's new ?\n }`);
+console.log("  - Follow user from Target Followers");
+console.log("  - Follow user from Target Following" , '\n');
+
 // Alert
 console.log("  —————————————————————————————".bold.red);
-console.log("  Combined actions in total is 500 actions a day.".bold.red);
-console.log("  This includes the following, likes and unfollows.".bold.red);
+console.log("  use this bot responsibly, I am not responsible if".bold.red);
+console.log("  your account is blocked by Instagram.".bold.red);
 console.log("  ——————————————————————————————————————————\n".bold.red);
 main();
