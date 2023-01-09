@@ -5,7 +5,7 @@ print(
   Auto View Story from Feeds [ BETA ]
   —————————————————————————————————————————————————————
   
-  Donate Seikhlasnya, Silahkan PM :
+  Donate Seikhlasnya, Silahkan PM Kalo Mau Wkwk :
   
   - Facebook   : https://fb.me/4RAEHAN
   - Instagram  : https://instagram.com/hanzvibes
