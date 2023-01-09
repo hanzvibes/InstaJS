@@ -5,6 +5,7 @@
         "fs": "0.0.1-security",
         "inquirer": "^6.5.0",
         "instagram-private-api": "^1.45.3",
+        "lodash": "^4.17.21",
         "moment": "^2.29.1",
         "open": "^8.4.0",
         "opn": "^6.0.0",
