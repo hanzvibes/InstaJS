@@ -37,7 +37,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },,
+        },
     ];
 
     try {
