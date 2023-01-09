@@ -5,27 +5,19 @@ var userHome = require("user-home");
 var open = require('open');
 var os = require("os");
 
-// IP
-var interfaces = os.networkInterfaces();
-var addresses = [];
-for (var k in interfaces) {
-    for (var k2 in interfaces[k]) {
-        var address = interfaces[k][k2];
-        if (address.family === "IPv4" && !address.internal) {
-            addresses.push(address.address);
-        }
-    }
-}
-
-// Tools Title
+// List
 const questionTools = [
     "- Information",
     "- Like all post on your Feed",
     "- Like all post from target Account",
     "- Delete all post from your Account",
     
+    "- View all story from feeds [NEW]",
     "- Follow Account by Target Followers [NEW]",
     "- Follow Account by Target Followings [NEW]",
+    "- Follow all user from Hashtag [NEW]",
+    "- Like all post from Hashtag [NEW]",
+    "- Comment all post from hashtag [NEW]",
     "- Follow & Like post by Target Followers",
     "- Like & Comment post by Target Followers Target",
 
@@ -61,20 +53,24 @@ const main = async () => {
         choice == questionTools[1] && require("./src/liketimeline.js");
         choice == questionTools[2] && require("./src/liketarget.js");
         choice == questionTools[3] && require("./src/delallmedia.js");
-        choice == questionTools[4] && require("./src/followers_only.js");
-        choice == questionTools[5] && require("./src/following_only.js");
-        choice == questionTools[6] && require("./src/flonly.js");
-        choice == questionTools[7] && require("./src/lconly.js");
-        choice == questionTools[8] && require("./src/fftauto.js");
-        choice == questionTools[9] && require("./src/fftbetaauto.js");
-        choice == questionTools[10] && require("./src/fftautov2.js");
-        choice == questionTools[11] && require("./src/fftdmauto.js");
-        choice == questionTools[12] && require("./src/fftdmbetaauto.js");
-        choice == questionTools[13] && require("./src/fhtauto.js");
-        choice == questionTools[14] && require("./src/fltauto.js");
-        choice == questionTools[15] && require("./src/unfollowall.js");
-        choice == questionTools[16] && require("./src/unfollnotfollback.js");
-        choice == questionTools[17] && process.exit();
+        choice == questionTools[4] && require("./src/story_views.js");
+        choice == questionTools[5] && require("./src/followers_only.js");
+        choice == questionTools[6] && require("./src/following_only.js");
+        choice == questionTools[7] && require("./src/follow_from_hashtag.js");
+        choice == questionTools[8] && require("./src/like_from_hashtag.js");
+        choice == questionTools[9] && require("./src/comment_from_hashtag.js");
+        choice == questionTools[10] && require("./src/flonly.js");
+        choice == questionTools[11] && require("./src/lconly.js");
+        choice == questionTools[12] && require("./src/fftauto.js");
+        choice == questionTools[13] && require("./src/fftbetaauto.js");
+        choice == questionTools[14] && require("./src/fftautov2.js");
+        choice == questionTools[15] && require("./src/fftdmauto.js");
+        choice == questionTools[16] && require("./src/fftdmbetaauto.js");
+        choice == questionTools[17] && require("./src/fhtauto.js");
+        choice == questionTools[18] && require("./src/fltauto.js");
+        choice == questionTools[19] && require("./src/unfollowall.js");
+        choice == questionTools[20] && require("./src/unfollnotfollback.js");
+        choice == questionTools[21] && process.exit();
     } catch (err) {
         print(err, "err");
     }
@@ -95,16 +91,20 @@ console.log(chalk`{bold.green
 
   - https://instagram.com/hanzvibes
 
-  Last update : 26 December 2022                               
-  }`);
+  Last update : 8 January 2023
+  Version : 3.0
+  Buy me a Surya 12 : 089666205133 ( GOPAY, OVO, DANA, Shopeepay )                                 }\n`);
+console.log(chalk`{bold   Komplain Elit, Donate Sulit}\n`)
 console.log(chalk`{bold.yellow   An automation tools to help increase your}`);
 console.log(chalk`{bold.yellow   Instagram engagement & impressions}`);
 console.log("  —————————————————————————————————————————————\n".bold);
    
 // API Limit Description
 console.log(chalk`{bold.blue   What's new ?\n }`);
-console.log("  - Follow user from Target Followers");
-console.log("  - Follow user from Target Following" , '\n');
+console.log("  - Auto Views Story");
+console.log("  - Follow all user from hashtag");
+console.log("  - Comment all post from hashtag");
+console.log("  - Like all post from hashtag" , '\n');
 
 // Alert
 console.log("  —————————————————————————————".bold.red);
