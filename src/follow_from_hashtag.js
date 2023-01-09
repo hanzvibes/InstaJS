@@ -38,8 +38,8 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
         const { username, password, hashtag, perExec } = await inquirer.prompt(questions);
         
         // Delay
-        const minDelay = 60000; // Minimum Delay
-        const maxDelay = 100000; // Maximum Delay
+        const minDelay = 600000; // Minimum Delay
+        const maxDelay = 1000000; // Maximum Delay
         const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         
         // Login 
