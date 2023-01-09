@@ -1,14 +1,18 @@
 ![Logo](https://raw.githubusercontent.com/hanzvibes/InstaJS/main/assets/banner.png)
 
-# InstaJS v2
+# InstaJS v3
 
 A simple NodeJS based tool to help increase engagement on Instagram accounts and to interact between accounts effortlessly.
 
 
 ## 🌟 Features
 
-- Follow user by Target Following [ New ] 🔥
-- Follow user by Target Followers [ New ] 🔥
+- View all story from feeds [ DONATE Only ]🔥
+- Like All post from Hashtag [ New ]🔥
+- Comment All post from Hashtag [ New ]🔥
+- Follow All people from Hashtag [ New ]🔥
+- Follow user by Target Following [ New ]🔥
+- Follow user by Target Followers [ New ]🔥
 - Delete all post / media on your account 
 - Like all post on your feed
 - Like all post from your custom target profile 
