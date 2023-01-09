@@ -4,7 +4,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Unfollow Account Who Not Following You Back\n}`);
+  Unfollow Account Who Not Following You Back ( Auto Set Delay )\n}`);
     
 // Input 
     const questions = [
@@ -26,18 +26,18 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
-        {
-            type: "input",
-            name: "delayTime",
-            message: "Input delay time (in milliseconds):",
-            validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
+        },        
     ];
 
 // Service Start
     try {
-        const { username, password, target, perExec, delayTime } = await inquirer.prompt(questions);
+        const { username, password, target, perExec } = await inquirer.prompt(questions);
+        
+        // Delay
+        const minDelay = 60000; // Minimum Delay
+        const maxDelay = 100000; // Maximum Delay
+        const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+
         const ig = new instagram(username, password);
         print("Try to Login . . .", "wait", true);
         const login = await ig.login();
@@ -75,7 +75,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
         print(`You're following ${following.length} Account !`, "ok");
         await Promise.all(following.map(async (user) => (users = _.differenceBy(following, followers, "id"))));
         print(`Found ${users.length} account who not follows you back`, "ok");
-        print(`Doing task with ratio ${perExec} target / ${delayTime} milliseconds \n`, "wait");
+        print(`Doing task with ratio ${perExec} target / ${randomDelayTime} milliseconds \n`, "wait");
         users = _.chunk(users, perExec);
         for (let i = 0; i < users.length; i++) {
             await Promise.all(
@@ -84,8 +84,8 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                     print(`• @${user.username} ${unfollow ? chalk.bold.green("Unfollowed!") : chalk.bold.red("Failed to Unfollow!")}`);
                 })
             );
-            if (i < users.length - 1) print(`[@${login.username}] Sleeping for ${delayTime}ms.... \n`, "wait", true);
-            await delay(delayTime);
+            if (i < users.length - 1) print(`[@${login.username}] Sleeping for ${randomDelayTime}ms.... \n`, "wait", true);
+            await delay(randomDelayTime);
         }
         print(`Status: All Task done!`, "ok", true);
     } catch (err) {

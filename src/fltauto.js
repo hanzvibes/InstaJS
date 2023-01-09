@@ -3,7 +3,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Folow, Like & Comment post from Location}`);
+  Folow, Like & Comment post from Location ( Auto Set Delay )\n}`);
   
     const questions = [
         {
@@ -37,23 +37,24 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
         },
-        {
-            type: "input",
-            name: "delayTime",
-            message: "Input delay time (in milliseconds):",
-            validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
     ];
 
     try {
-        const { username, password, location, perExec, delayTime, inputMessage } = await inquirer.prompt(questions);
+        const { username, password, location, perExec, inputMessage } = await inquirer.prompt(questions);
+        
+        // Delay
+        const minDelay = 60000; // Minimum Delay
+        const maxDelay = 100000; // Maximum Delay
+        const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+        
+        // Login
         const ig = new instagram(username, password);
         print("Try to Login . . .", "wait", true);
         const login = await ig.login();
         print(`Logged in as @${login.username} (User ID : ${login.pk})`, "ok");
         print(`Collecting media on location feed . . .`, "wait");
         const locationFeed = await ig.locationFeed(location);
-        print(`Doing task with ratio ${perExec} target / ${delayTime} milliseconds \n`, "wait");
+        print(`Doing task with ratio ${perExec} target / ${randomDelayTime} milliseconds \n`, "wait");
         do {
             let items = await locationFeed.items();
             items = _.chunk(items, perExec);
@@ -73,8 +74,8 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                         } else print(chalk`Skipped @${media.user.username} {yellow because their account is already liked, followed or following you}`);
                     })
                 );
-                if (i < items.length - 1) print(`[@(${login.username}] Sleeping for ${delayTime}ms.... \n`, "wait", true);
-                await delay(delayTime);
+                if (i < items.length - 1) print(`[@(${login.username}] Sleeping for ${randomDelayTime}ms.... \n`, "wait", true);
+                await delay(randomDelayTime);
             }
         } while (locationFeed.moreAvailable);
         print(`Status: All tasks done!`, "ok", true);

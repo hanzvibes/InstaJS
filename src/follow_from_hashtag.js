@@ -4,7 +4,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Follow, Like & Comment post from Hashtag ( Auto Set Delay )\n}`);
+  Follow all user from Hashtag ( Auto Set Delay )\n}`);
   
     const questions = [
         {
@@ -28,27 +28,21 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
         },
         {
             type: "input",
-            name: "inputMessage",
-            message: "Input text's message (more? '|') :",
-            validate: (val) => val.length != 0 || "Please input text's Message!",
-        },
-        {
-            type: "input",
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },,
+        },
     ];
 
     try {
-        const { username, password, hashtag, perExec, inputMessage } = await inquirer.prompt(questions);
+        const { username, password, hashtag, perExec } = await inquirer.prompt(questions);
         
         // Delay
         const minDelay = 60000; // Minimum Delay
         const maxDelay = 100000; // Maximum Delay
         const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         
-        // Login
+        // Login 
         const ig = new instagram(username, password);
         print("Trying to log in . . .", "wait", true);
         const login = await ig.login();
@@ -63,16 +57,12 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                 await Promise.all(
                     items[i].map(async (media) => {
                         const status = await ig.friendshipStatus(media.user.pk);
-                        if (!media.has_liked && !media.user.is_private && !status.following && !status.followed_by) {
-                            const text = inputMessage.split("|");
-                            const msg = text[Math.floor(Math.random() * text.length)];
-                            const task = [ig.follow(media.user.pk), ig.like(media.pk), ig.comment(media.pk, msg)];
-                            let [follow, like, comment] = await Promise.all(task);
-                            follow = follow ? chalk.bold.green(`Followed`) : chalk.bold.red("Not followed");
-                            like = like ? chalk.bold.green("Liked") : chalk.bold.red("Not liked");
-                            comment = comment ? chalk.bold.green("Commented") : chalk.bold.red("not commented");
-                            print(`• ${follow}, ${like}, ${comment} post from @${media.user.username}`);
-                        } else print(chalk`• {yellow Skipped @${media.user.username} because their account are already liked/followed}`);
+                        if (!status.following && !status.followed_by) {                            
+                            const task = [ig.follow(media.user.pk)];
+                            let [follow] = await Promise.all(task);
+                            follow = follow ? chalk.bold.green(`Followed`) : chalk.bold.red("Not followed");                            
+                            print(`• @${media.user.username} : ${follow}`);
+                        } else print(chalk`• {yellow Skipped @${media.user.username} because their account are already followed}`);
                     })
                 );
                 if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${randomDelayTime}ms.... \n`, "wait", true);

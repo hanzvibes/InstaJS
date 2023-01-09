@@ -4,7 +4,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Like All Post from your Feed\n}`);
+  Like All post from your Feed ( Auto Set Delay )\n}`);
   
 // Input
     const questions = [
@@ -26,25 +26,24 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
-        {
-            type: "input",
-            name: "delayTime",
-            message: "Input delay time (in milliseconds):",
-            validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
+        },        
     ];
 
-// Service Start
     try {
-        const { username, password, perExec, delayTime } = await inquirer.prompt(questions);
+        const { username, password, perExec } = await inquirer.prompt(questions);
+        
+        // Delay
+        const minDelay = 60000; // Minimum Delay
+        const maxDelay = 100000; // Maximum Delay
+        const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+        
         const ig = new instagram(username, password);
         print("Try to Login . . .", "wait", true);
         const login = await ig.login();
-        print(`Logged in as @${login.username} (User ID: ${login.pk})`, "ok");
+        print(`Logged in as @${login.username} (User ID : ${login.pk})`, "ok");
         print("Collecting timeline feeds . . .", "wait");
         const feed = await ig.timelineFeed();
-        print(`Doing task with ratio ${perExec} target / ${delayTime} milliseconds \n`, "wait");
+        print(`Doing task with ratio ${perExec} target / ${randomDelayTime} milliseconds \n`, "wait");
         do {
             let items = await feed.items();
             items = _.chunk(items, perExec);
@@ -57,8 +56,8 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                         } else print(chalk`• @${media.user.username} {yellow Already liked !}`);
                     })
                 );
-                if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${delayTime}ms..... \n`, "wait", true);
-                await delay(delayTime);
+                if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${randomDelayTime}ms..... \n`, "wait", true);
+                await delay(randomDelayTime);
             }
         } while (feed.moreAvailable);
         print(`Status: All Task done!`, "ok", true);

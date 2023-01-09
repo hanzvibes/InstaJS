@@ -4,21 +4,21 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Like & Comment post from Target Followers List \n}`);
+  Like & Comment post from Target Followers List ( Auto Set Delay )\n}`);
   
 // Input
     const questions = [
         {
             type: "input",
             name: "username",
-            message: "Input Username:",
+            message: "Input Username :",
             validate: (val) => val.length != 0 || "Please input username!",
         },
         {
             type: "password",
             name: "password",
             mask: "*",
-            message: "Input password:",
+            message: "Input password :",
             validate: (val) => val.length != 0 || "Please input password!",
         },
         {
@@ -39,17 +39,17 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
         },
-        {
-            type: "input",
-            name: "delayTime",
-            message: "Input sleep time (in milliseconds):",
-            validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },
     ];
 
 // Service Start
     try {
-        const { username, password, target, perExec, delayTime, inputMessage } = await inquirer.prompt(questions);
+        const { username, password, target, perExec, inputMessage } = await inquirer.prompt(questions);
+        
+        // Delay
+        const minDelay = 60000; // Minimum Delay
+        const maxDelay = 100000; // Maximum Delay
+        const randomDelayTime = Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
+        
         const ig = new instagram(username, password);
         print("Try to Login . . .", "wait", true);
         const login = await ig.login();
@@ -61,7 +61,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             print(`@${target} (User ID: ${id}) => Followers: ${info.follower_count}, Following: ${info.following_count}`, "ok");
             print("Collecting followers . . .", "wait");
             const targetFollowers = await ig.followersFeed(id);
-            print(`Doing task with ratio ${perExec} target / ${delayTime} milliseconds \n`, "wait");
+            print(`Doing task with ratio ${perExec} target / ${randomDelayTime} milliseconds \n`, "wait");
             do {
                 let items = await targetFollowers.items();
                 items = _.chunk(items, perExec);
@@ -84,8 +84,8 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                             } else print(chalk`• @${follower.username} : {yellow Private or already followed/follows you, Skip.}`);
                         })
                     );
-                    if (i < items.length - 1) print(`[${login.username}] Sleeping for ${delayTime}ms.... \n`, "wait", true);
-                    await delay(delayTime);
+                    if (i < items.length - 1) print(`[${login.username}] Sleeping for ${randomDelayTime}ms.... \n`, "wait", true);
+                    await delay(randomDelayTime);
                 }
             } while (targetFollowers.moreAvailable);
             print(`Status: All Task done!`, "ok", true);

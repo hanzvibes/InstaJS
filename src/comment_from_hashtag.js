@@ -4,7 +4,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
 (async () => {
     print(
         chalk`{bold.yellow
-  Follow, Like & Comment post from Hashtag ( Auto Set Delay )\n}`);
+  Comment all post from Hashtag ( Auto Set Delay )\n}`);
   
     const questions = [
         {
@@ -37,7 +37,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
-        },,
+        },
     ];
 
     try {
@@ -66,13 +66,11 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                         if (!media.has_liked && !media.user.is_private && !status.following && !status.followed_by) {
                             const text = inputMessage.split("|");
                             const msg = text[Math.floor(Math.random() * text.length)];
-                            const task = [ig.follow(media.user.pk), ig.like(media.pk), ig.comment(media.pk, msg)];
-                            let [follow, like, comment] = await Promise.all(task);
-                            follow = follow ? chalk.bold.green(`Followed`) : chalk.bold.red("Not followed");
-                            like = like ? chalk.bold.green("Liked") : chalk.bold.red("Not liked");
+                            const task = [ig.comment(media.pk, msg)];
+                            let [comment] = await Promise.all(task);
                             comment = comment ? chalk.bold.green("Commented") : chalk.bold.red("not commented");
-                            print(`• ${follow}, ${like}, ${comment} post from @${media.user.username}`);
-                        } else print(chalk`• {yellow Skipped @${media.user.username} because their account are already liked/followed}`);
+                            print(`• ${comment} post from @${media.user.username}`);
+                        } else print(chalk`• {yellow Skipped @${media.user.username} because their account are already commented}`);
                     })
                 );
                 if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${randomDelayTime}ms.... \n`, "wait", true);

@@ -108,7 +108,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                             } else print(chalk`• @${follower.username} : {yellow Private or already followed/follows you, Skip.}`);
                         })
                     );
-                    if (i < items.length - 1) print(`Current Account is @(${login.username}) with Delay ${perExec}/${delayTime}ms \n`, "wait", true);
+                    if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${delayTime}ms.... \n`, "wait", true);
                     await delay(delayTime);
                 }
             } while (targetFollowers.moreAvailable);

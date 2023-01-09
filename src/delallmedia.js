@@ -56,7 +56,7 @@ const { chalk, inquirer, _, fs, instagram, print, delay } = require("./index.js"
                             print(`• /p/${media.code}/ (${media.pk}) : ${del ? chalk.bold.green("Deleted!") : chalk.bold.red("Failed to delete!")}`);
                         })
                     );
-                    if (i < items.length - 1) print(`Current Account is @(${login.username}) with Delay ${perExec}/${delayTime}ms \n`, "wait", true);
+                    if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${delayTime}ms.... \n`, "wait", true);
                     await delay(delayTime);
                 }
             } while (feed.moreAvailable);
