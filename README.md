@@ -1,18 +1,20 @@
 ![Logo](https://raw.githubusercontent.com/hanzvibes/InstaJS/main/assets/banner.png)
 
-# InstaJS v3
+# InstaJS v3.1
 
 A simple NodeJS based tool to help increase engagement on Instagram accounts and to interact between accounts effortlessly.
 
 
 ## 🌟 Features
 
-- View all story from feeds [ DONATE Only ]🔥
-- Like All post from Hashtag [ New ]🔥
-- Comment All post from Hashtag [ New ]🔥
-- Follow All people from Hashtag [ New ]🔥
-- Follow user by Target Following [ New ]🔥
-- Follow user by Target Followers [ New ]🔥
+- View all stories from feeds🔥
+- Unfollow Inactive user 🔥
+- Unfollow user if they haven't any post 🔥
+- Like All post from Hashtag🔥
+- Comment All post from Hashtag🔥
+- Follow All people from Hashtag🔥
+- Follow user by Target Following🔥
+- Follow user by Target Followers🔥
 - Delete all post / media on your account 
 - Like all post on your feed
 - Like all post from your custom target profile 
@@ -24,6 +26,19 @@ A simple NodeJS based tool to help increase engagement on Instagram accounts and
 - Follow, Like & Comment post by Location
 - Unfollow all following
 - Unfollow account who not following you back
+
+## Changelog v3.1
+
+- Auto View Stories
+- Auto Unfollow Inactive user
+- Auto Unfollow user if they haven't any post 
+- Auto Like and Comment on feeds
+- Auto Like all posts from location (Like only)
+- Auto Comment all posts from location (Comment only)
+- Auto Follow all people from location (Follow only)
+- Auto-set and change delays to simulate human behavior
+- Automatically save logs in the './logs/' folder
+- Change login method using 'dotenv'
 
 ## 📂Requirements
 
@@ -47,10 +62,18 @@ Run
 ```bash
 node index.js
 ```
+## ⚙️ Setup your account
+
+Edit .env file
+
+```bash
+INSTAGRAM_USERNAME=your_username
+INSTAGRAM_PASSWORD=your_password
+```
 
 ## ⏳Optimizations
 
-Set delay to 5/600000 to prevent ban from Instagram and stop using this tool after ±4 hours running
+Auto-set and change delays to simulate human behavior
 ## 📱Screenshots
 
 ![App Screenshot](https://raw.githubusercontent.com/hanzvibes/InstaJS/main/assets/dashboard.png)
@@ -60,7 +83,7 @@ Set delay to 5/600000 to prevent ban from Instagram and stop using this tool aft
 
 If you have any feedback, please reach out to me at 🕵️
 - 🌐 [Instagram](https://instagram.com/hanzvibes)
-- 🌐 [Telegram](https://t.me/hnzvbs_updates)
+- 🌐 [Telegram](https://t.me/InstaJS_Official)
 
 
 ## Credits
