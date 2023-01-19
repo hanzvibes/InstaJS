@@ -2,6 +2,7 @@
     "dependencies": {
         "chalk": "^2.4.2",
         "colors": "^1.4.0",
+        "dotenv": "^16.0.3",
         "fs": "0.0.1-security",
         "inquirer": "^6.5.0",
         "instagram-private-api": "^1.45.3",
