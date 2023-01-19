@@ -73,9 +73,9 @@ const main = async () => {
         choice == questionTools[21] && require("./src/targetFollowers/followLike.js");
         choice == questionTools[22] && require("./src/dm/followLikeComment.js");
         choice == questionTools[23] && require("./src/dm/followLikeComment2.js");
-        choice == questionTools[24] && require("./src/account/cleanMedia.js");
-        choice == questionTools[25] && require("./src/account/cleanFollowing.js");
-        choice == questionTools[26] && require("./src/account/notFollback.js");
+        choice == questionTools[24] && require("./src/accounts/cleanMedia.js");
+        choice == questionTools[25] && require("./src/accounts/cleanFollowing.js");
+        choice == questionTools[26] && require("./src/accounts/notFollback.js");
         choice == questionTools[27] && process.exit();
     } catch (err) {
         print(err, "err");
