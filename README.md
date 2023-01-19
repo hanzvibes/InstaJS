@@ -1,4 +1,4 @@
-![Logo](https://raw.githubusercontent.com/hanzvibes/InstaJS/main/assets/banner.png)
+![Logo](https://github.com/hanzvibes/InstaJS/blob/main/assets/banner3_1.png)
 
 # InstaJS v3.1
 
