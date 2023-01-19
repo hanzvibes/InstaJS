@@ -4,7 +4,7 @@ require('dotenv').config();
 (async () => {
     print(
         chalk`{bold.yellow
-  Comment all post by Location\n}`)
+  Like all post from Location [NEW]\n}`)
 
     const questions = [
         {
@@ -15,12 +15,6 @@ require('dotenv').config();
         },
         {
             type: "input",
-            name: "inputMessage",
-            message: "Input text's message (more? '|') :",
-            validate: (val) => val.length != 0 || "Please input text's Message!",
-        },
-        {
-            type: "input",
             name: "perExec",
             message: "Input limit per-execution:",
             validate: (val) => /[0-9]/.test(val) || "Only input numbers",
@@ -28,7 +22,7 @@ require('dotenv').config();
     ];
 
     try {
-        const { location, perExec, inputMessage } = await inquirer.prompt(questions);
+        const { location, perExec } = await inquirer.prompt(questions);
         
         // Login Information
         const username = process.env.INSTAGRAM_USERNAME;
@@ -36,7 +30,7 @@ require('dotenv').config();
         
         // Auto Change Delay
         function getRandomDelay() {
-            const minDelay = 600000; // Minimum Delay
+            const minDelay = 60000; // Minimum Delay
             const maxDelay = 1000000; // Maximum Delay
             return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         }
@@ -52,11 +46,10 @@ require('dotenv').config();
         const locationFeed = await ig.locationFeed(location);
         
         // Logs
-        const log = fs.createWriteStream("./logs/targetLocation/comment.txt", { flags: "a" });
-        
+        const log = fs.createWriteStream("./logs/targetLocation/like.txt", { flags: "a" });
         // Doing tasks
-        print(`You will comments each ${perExec} posts per-execution`, "ok");
-        print(`All logs will be stored here /logs/targetLocation/comment.txt \n`, "ok");
+        print(`You will like each ${perExec} posts per-execution`, "ok");
+        print(`All logs will be stored here /logs/targetLocation/like.txt \n`, "ok");
         do {
             let items = await locationFeed.items();
             items = _.chunk(items, perExec);
@@ -64,18 +57,16 @@ require('dotenv').config();
                 await Promise.all(
                     items[i].map(async (media) => {
                         const status = await ig.friendshipStatus(media.user.pk);
-                        if (!media.has_liked && !media.user.is_private && !status.following && !status.followed_by) {
-                            const text = inputMessage.split("|");
-                            const msg = text[Math.floor(Math.random() * text.length)];
-                            const task = [ig.comment(media.pk, msg)];
-                            let comment = await Promise.all(task);
-                            comment = comment ? chalk.bold.green("Commented") : chalk.bold.red("Not Commented");
-                            print(`• ${comment} post from @${media.user.username}`);
-                            log.write(`${new Date().toString()} - Commented post from @${media.user.username} - ${comment ? "Success" : "Failed"}\n`);
-                        } else print(chalk`Skipped @${media.user.username} {yellow because their account is already commented}`);
+                        if (!media.has_liked && !media.user.is_private) {
+                            const task = [ig.like(media.pk)];
+                            let like = await Promise.all(task);
+                            like = like ? chalk.bold.green("Liked") : chalk.bold.red("Not Liked");
+                            print(`• ${like} post from @${media.user.username}`);
+                            log.write(`${new Date().toString()} - Liked post from @${media.user.username} - ${like ? "Success" : "Failed"}\n`);
+                        } else print(chalk`Skipped @${media.user.username} {yellow because their account is already liked}`);
                     })
                 );
-                if (i < items.length - 1) print(`[@(${login.username}] Sleeping for ${getRandomDelay()}ms.... \n`, "wait", true);
+                if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${getRandomDelay()}ms.... \n`, "wait", true);
                 await delay(getRandomDelay());
             }
         } while (locationFeed.moreAvailable);
