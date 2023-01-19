@@ -28,7 +28,7 @@ require('dotenv').config();
             const maxDelay = 100000; // Maximum Delay
             return Math.floor(Math.random() * (maxDelay - minDelay + 1)) + minDelay;
         }
-        change this code to like story
+        
         // Try to Login
         const ig = new instagram(username, password);
         print("Trying to Login . . .", "wait", true);
@@ -44,7 +44,7 @@ require('dotenv').config();
         
         // Doing tasks
         print(`You will like each ${perExec} post per-execution`, "ok");
-        print(`All logs will be stored here /logs/hashtags/like.txt \n`, "ok");
+        print(`All logs will be stored here /logs/feeds/like.txt \n`, "ok");
         do {
             let items = await feed.items();
             items = _.chunk(items, perExec);
