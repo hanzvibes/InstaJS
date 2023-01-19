@@ -83,8 +83,8 @@ const main = async () => {
 };
 
 // Open @hanzvibes Instagram Profile
-//const link = 'https://www.instagram.com/hanzvibes';
-//open(link);
+const link = 'https://www.instagram.com/hanzvibes';
+open(link);
 
 console.log(chalk`{bold.green 
 
@@ -97,7 +97,7 @@ console.log(chalk`{bold.green
 
   - https://instagram.com/hanzvibes
 
-  Last update : 29 January 2023
+  Last update : 19 January 2023
   Version : 3.1
   Donate : 089666205133 ( GOPAY, OVO, DANA, Shopeepay )}\n`);
 console.log(chalk`{bold   Donate Kalo Pengen Update-an Lancar}\n`)
