@@ -2,8 +2,9 @@
 
 # InstaJS v3.1
 
-A simple NodeJS based tool to help increase engagement on Instagram accounts and to interact between accounts effortlessly.
+It runs as a command line interface on your devices and will interact to Instagram users (configurable). You choose a list of Instagram users whose market you want to target. The bot navigates to each of these, finds the last people and then like, follow & comments each of them (also configurable), it will interact to target users. Simple and effective.
 
+The bot will remember every user it has followed, liked & comments so if you quit the app and open it later, it will still clean up by remember users that it previously already interacted.
 
 ## 🌟 Features
 
@@ -88,4 +89,4 @@ If you have any feedback, please reach out to me at 🕵️
 
 ## Credits
 
-- [officialputuid](https://github.com/officialputuid/toolsig) ( Original Source Code )
+- [officialputuid](https://github.com/officialputuid/toolsig)
