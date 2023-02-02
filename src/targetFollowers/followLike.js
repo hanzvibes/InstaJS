@@ -75,8 +75,9 @@ require('dotenv').config();
                         })
                     );
                     
-                    // Sleeping
+                    // Sleeping 
                     if (i < items.length - 1) print(`[@${login.username}] Sleeping for ${getRandomDelay()}ms.... \n`, "wait", true);
+                    await delay(getRandomDelay());
                 }
             } while (targetFollowers.moreAvailable);
             print(`Status: All tasks done!`, "ok", true);
